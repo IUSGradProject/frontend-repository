@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="login-container">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="loginClicked()">
+      
+      <mat-form-field appearance="fill" class="form-group">
+        <mat-label>Email</mat-label>
+        <input matInput id="email" type="text" formControlName="email" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-group">
+        <mat-label>Password</mat-label>
+        <input matInput id="password" type="password" formControlName="password" required />
+      </mat-form-field>
+      <mat-error *ngIf="!successfulLogin">
+        Username or password are invalid
+      </mat-error>
+
+      <button type="submit">Login</button>
+      
+      <div class="signup-link">
+        <label>
+          Or don't have an account? <a mat-button href="/signup">Sign up</a>
+        </label>
+      </div>
+    </form>
+  </div>
+</div>

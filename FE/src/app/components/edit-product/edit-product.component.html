@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="product-form-container">
+      <h2>
+        @if(productId == undefined) {
+          Create
+        } @else {
+          Edit
+        }
+        product</h2>
+      <form [formGroup]="productForm" (submit)="onSubmit()">
+  
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Product name</mat-label>
+          <input matInput id="name" formControlName="name" required />
+          <mat-error *ngIf="productForm.get('name')?.hasError('required')">
+            Product name is required.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Image URL</mat-label>
+          <input matInput id="image" formControlName="image" required />
+          <mat-error *ngIf="productForm.get('image')?.hasError('required')">
+            Image URL is required.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Description</mat-label>
+          <textarea matInput id="description" formControlName="description"></textarea>
+        </mat-form-field>
+  
+        <div class="form-row">
+          <mat-form-field appearance="fill" class="form-group">
+            <mat-label>Price</mat-label>
+            <input matInput currencyMask [options]="{ prefix: '$', thousands: '.', decimal: ',' }" id="price" formControlName="price" type="text" min="0" required />
+            <mat-error *ngIf="productForm.get('price')?.hasError('required')">
+              Price is required.
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="form-group">
+            <mat-label>Sold items</mat-label>
+            <input matInput id="soldItems" formControlName="soldItems" type="number" required min="0"/>
+            <mat-error *ngIf="productForm.get('soldItems')?.hasError('required')">
+              Number of sold items is required.
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="form-group">
+            <mat-label>Available items</mat-label>
+            <input matInput id="available" formControlName="available" type="number" required min="0" />
+            <mat-error *ngIf="productForm.get('available')?.hasError('required')">
+              Number of available items is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="categoryId">
+            <mat-option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="productForm.get('categoryId')?.hasError('required')">
+            Category is required.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Brand</mat-label>
+          <mat-select formControlName="brandId">
+            <mat-option *ngFor="let brand of brands" [value]="brand.id">
+              {{ brand.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="productForm.get('brandId')?.hasError('required')">
+            Brand is required.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Style</mat-label>
+          <mat-select formControlName="styleId">
+            <mat-option *ngFor="let style of styles" [value]="style.id">
+              {{ style.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="productForm.get('styleId')?.hasError('required')">
+            Style is required.
+          </mat-error>
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+        <button mat-raised-button color="primary" (click)="goBack($event)">Cancel</button>
+      </form>
+    </div>
+  </div>  

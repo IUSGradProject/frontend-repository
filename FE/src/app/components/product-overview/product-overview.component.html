@@ -1,0 +1,45 @@
+<div class="product-container">
+    <div class="product-row">
+        <div class="product-images">
+            <img [src]="product.image" alt="Product" class="main-image" id="mainImage">
+        </div>
+
+        <div class="product-details">
+            <div class="top-container">
+                <h2>{{ product.name }}</h2>
+            <div class="price-container">
+                <span class="price">{{ product.price | currency}}</span>
+            </div>
+            <p class="description">
+                {{ product.description }}
+            </p>
+            <div class="brand-selector">
+                <h5>Brand: {{ product.brand.name }} </h5>
+            </div>
+            </div>
+            
+            <div class="bottom-container">
+                <hr>
+                <div class="add-to-cart-section">
+                <label for="quantity">Quantity: </label>
+                <input class="quantity" type="number" [id]="quantity" [(ngModel)]="quantity" (input)="updateTotalPrice()" [min]="1" [max]="product.available">
+                <label class="price">Subtotal: {{ totalPrice | currency }}</label>
+            </div>
+            <div class="actions">
+                <button (click)="addToCart(product)">Add to Cart</button>
+                <button (click)="buyNow(product)" [disabled]="!isLoggedIn">Buy Now</button>
+            </div>
+            </div>
+            <app-delete-confirmation 
+  *ngIf="showLoginPrompt"
+  (confirm)="onLoginPromptConfirm()"
+  (cancel)="onLoginPromptCancel()"
+  [title]="'Login Required'"
+  [message]="'You need to log in to add items to your cart or proceed with checkout.'"
+  [confirmText]="'Login'"
+  [cancelText]="'Cancel'"
+  [popupStyle]="popupStyle"> 
+</app-delete-confirmation>
+        </div>
+    </div>
+</div>

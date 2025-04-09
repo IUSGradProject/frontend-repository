@@ -1,0 +1,48 @@
+<header class="nav-bar">
+    <div class="logo">
+        <button class="menu-toggle" aria-label="Toggle navigation" (click)="toggleMenu()">&#9776;</button>
+        <a routerLink="/">
+            <img
+              src="https://imgs.search.brave.com/KYs7dotj0MVYs9ZFXhe0tpqIHilTa2VeIioDsx892E8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLmV0/c3lzdGF0aWMuY29t/LzkwMjY2NzMvYy8x/MzMzLzEzMzMvMzA3/LzMyNC9pbC8zMTM3/YjgvNDYzMzMyMDM1/MC9pbF82MDB4NjAw/LjQ2MzMzMjAzNTBf/NjA3Zy5qcGc"
+              alt="Aurora Jewels Logo"
+              class="logo-img"
+            />
+          </a>
+          
+        <span class="title">Aurora</span>
+    </div>
+    <div class="header-content" [class.active]="!menuActive" *ngIf="isLargeScreen && !menuActive">
+        <button class="menu-toggle" aria-label="Toggle navigation" (click)="toggleMenu()">&#9776;</button>
+        <nav class="nav-links">
+            <a href="/">HOME</a>
+            <a href="/shop">SHOP</a>
+            @if(isAdmin){
+                <a href="/dashboard" class="icon">DASHBOARD</a>
+            }
+            <a href="/cart" class="icon"><i class="fa fa-shopping-bag"></i> CART ({{ totalItems | async }})</a>
+            @if(!isLoggedIn){
+                <a href="/login" class="icon"><i class="fa fa-user"></i> LOG IN</a>
+            } @else {
+                <a href="/purchase-history" class="icon"><i class="fa fa-user"></i>  PROFILE</a>
+                <a href="/login" class="icon" (click)="logOut()"> LOG OUT</a>
+            }
+        </nav>
+    </div>
+</header>
+<div class="header-content" [class.active]="menuActive" *ngIf="!isLargeScreen || menuActive">
+    <button class="menu-toggle" aria-label="Toggle navigation" (click)="toggleMenu()">&#9776;</button>
+    <nav class="nav-links">
+        <a href="/" (click)="closeMenu()">HOME</a>
+        <a href="/shop" (click)="closeMenu()">SHOP</a>
+        <a href="/cart" class="icon" (click)="closeMenu()"><i class="fa fa-shopping-bag"></i> CART</a>
+        @if(isAdmin){
+            <a href="/dashboard" (click)="closeMenu()" class="icon">Dashboard</a>
+        }
+        @if(!isLoggedIn){
+            <a href="/login" class="icon" (click)="closeMenu()"><i class="fa fa-user"></i> LOG IN</a>
+        } @else {
+            <a href="/purchase-history" (click)="closeMenu()" class="icon">PURCHASES</a>
+            <a href="/login" class="icon" (click)="closeMenu()" (click)="logOut()"><i class="fa fa-user"></i> LOG OUT</a>
+        }
+    </nav>
+</div>

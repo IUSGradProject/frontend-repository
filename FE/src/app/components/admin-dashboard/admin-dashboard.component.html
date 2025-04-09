@@ -1,0 +1,152 @@
+<div class="container">
+  <div class="header">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <h1>Admin Dashboard</h1>
+    <button class="create-button" (click)="createProduct()">
+      <i class="fa-solid fa-plus"></i> Add new
+    </button>
+  </div>  
+
+  <div class="button-group">
+    <button (click)="setCategory('active')" [class.active]="selectedCategory === 'active'">Active Products</button>
+    <button (click)="setCategory('deleted')" [class.active]="selectedCategory === 'deleted'">Deleted Products</button>
+    <button (click)="setCategory('soldOut')" [class.active]="selectedCategory === 'soldOut'">Sold Out Products</button>
+    <button (click)="setCategory('users')" [class.active]="selectedCategory === 'users'">Users</button>
+  </div>
+
+  <div class="checkout-sidebar-price-table">
+    <div>
+      
+      <div *ngIf="selectedCategory === 'active'">
+        <h2>Products Details</h2>
+      <!-- Active Products Table -->
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="table-header">Item Name</th>
+            <th class="table-header">Price</th>
+            <th class="table-header">Available</th>
+            <th class="table-header">Sold </th>
+            <th class="table-header">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of filteredProducts">
+            <td>{{ product.name }}</td>
+            <td>{{ product.price | currency }}</td>
+            <td>{{ product.available }}</td>
+            <td>{{ product.soldItems }}</td>
+            <td class="action">
+              <button (click)="editProduct(product.productId)">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button (click)="openDialog(product.productId)">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <div *ngIf="selectedCategory === 'deleted'">
+        <h2>Products Details</h2><!-- Deleted Products Table -->
+      <table class="table table-bordered" >
+        <thead>
+          <tr>
+            <th class="table-header">Item Name</th>
+            <th class="table-header">Price</th>
+            <th class="table-header">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of filteredProducts">
+            <td>{{ product.name }}</td>
+            <td>{{ product.price | currency }}</td>
+            <td class="action">
+              <button (click)="openRestoreDialog(product.productId)" class="restore">
+                <i class="fa-solid fa-undo"></i> 
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+      <!-- Sold Out Products Table -->
+       <div *ngIf="selectedCategory === 'soldOut'">
+        <h2>Products Details</h2>
+      <table class="table table-bordered" >
+        <thead>
+          <tr>
+            <th class="table-header">Item Name</th>
+            <th class="table-header">Price</th>
+            <th class="table-header">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of filteredProducts">
+            <td>{{ product.name }}</td>
+            <td>{{ product.price | currency }}</td>
+            <td class="action">
+              <button (click)="editProduct(product.productId)">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button (click)="openDialog(product.productId)">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+      <div *ngIf="selectedCategory === 'users'">
+        <h2>Users Details</h2>
+          <table class="table table-bordered ">
+            <thead>
+              <tr>
+                <th class="table-header" style="width: 15%;">Name </th>
+                <th class="table-header " style="width: 17.5%;">Surname</th>
+                <th class="table-header " style="width: 35%;">Email</th>
+                <th class="table-header"style="width: 17.5%;">Last Login</th>
+                <th class="table-header" style="width: 15%;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td >{{ user.firstName }}</td>
+                <td >{{ user.lastName }}</td>
+                <td >{{ user.email }}</td>
+                <td>{{ user.lastRequest | date: 'short' }}</td>
+                <td>{{ user.isDeleted ? 'Deactivated' : 'Active' }} <button 
+                  class="btn btn-danger btn-sm for-delete" 
+                  *ngIf="!user.isDeleted" 
+                  (click)="openUserDeactivationDialog(user)">
+                  <i class="bi bi-trash3-fill"></i> 
+                </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+    
+  
+    <mat-paginator *ngIf="filteredProducts.length > 0"
+                   [length]="totalRecords"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[2, 4, 6]"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+    <app-delete-confirmation
+    *ngIf="showConfirmationModal"
+    [title]="modalTitle"
+    [message]="modalMessage"
+    [confirmText]="modalConfirmText"
+    [cancelText]="modalCancelText"
+    (confirm)="onConfirm()"
+    (cancel)="onCancel()"
+  ></app-delete-confirmation>
+  </div>
+</div>
+  
+

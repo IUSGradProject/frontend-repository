@@ -1,0 +1,30 @@
+.product-form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;  /* Optional: Adds space between the form fields */
+  }

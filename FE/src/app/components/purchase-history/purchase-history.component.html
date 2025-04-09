@@ -1,0 +1,83 @@
+<div class="user-details-container">
+    <h3>User Details</h3>
+    <div class="user-detail">
+      <strong>First Name:</strong>
+      <span>{{ userDetails.firstName }}</span>
+    </div>
+    <div class="user-detail">
+      <strong>Last Name:</strong>
+      <span>{{ userDetails.lastName }}</span>
+    </div>
+    <div class="user-detail">
+      <strong>Email:</strong>
+      <span>{{ userDetails.email }}</span>
+    </div>
+    <button 
+    class="deactivate-button" 
+    (click)="openDeactivationDialog(userDetails.email)">
+    Deactivate Profie
+  </button>
+  </div>
+  
+
+@if(purchaseHistory?.length === 0){
+    <div >
+    <section class="trending-product section" style="margin-top: 12px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>You have no previous purchases!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+}
+
+@if(purchaseHistory.length > 0){
+    <div class="checkout-sidebar-price-table">
+<div>
+    <h2> Purchase History</h2>
+    <div *ngFor="let order of purchaseHistory">
+        <h5 class="page-title">Order date: {{ (order[0].orderDate) | date: "MMM dd, yyyy 'at' hh:mm a"}} </h5>
+        <h6 class="page-title"></h6>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="table-header">Item Name</th>
+                    <th class="table-header">Quantity</th>
+                    <th class="table-header">Price of product</th>
+                    <th class="table-header">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let orderDetail of order">
+                    <td>{{ orderDetail.name }}</td>
+                    <td>{{ orderDetail.quantity }}</td>
+                    <td>{{ orderDetail.price | currency}}</td>
+                    <td>{{ subtotal(orderDetail) | currency}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <mat-paginator [length]="totalRecords"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="[2, 4, 6]"
+                     (page)="onPageChange($event)">
+    </mat-paginator>
+</div>
+</div>
+}
+
+<app-delete-confirmation
+    *ngIf="showConfirmationModal"
+    [title]="modalTitle"
+    [message]="modalMessage"
+    [confirmText]="modalConfirmText"
+    [cancelText]="modalCancelText"
+    (confirm)="onConfirm()"
+    (cancel)="onCancel()"
+  ></app-delete-confirmation>

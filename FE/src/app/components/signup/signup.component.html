@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="login-container">
+      <h2>Sign up</h2>
+      <form [formGroup]="signupForm" (ngSubmit)="registerClicked()">
+        
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>First name</mat-label>
+          <input matInput id="firstName" type="text" formControlName="firstName" required />
+          <mat-error *ngIf="signupForm.get('firstName')?.hasError('required')">
+            First name is required.
+          </mat-error>
+          <mat-error *ngIf="signupForm.get('firstName')?.hasError('minlength') && !signupForm.get('firstName')?.hasError('required')">
+            First name must be at least 2 characters long.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Last name</mat-label>
+          <input matInput id="lastName" type="text" formControlName="lastName" required />
+          <mat-error *ngIf="signupForm.get('lastName')?.hasError('required')">
+            Last name is required.
+          </mat-error>
+          <mat-error *ngIf="signupForm.get('lastName')?.hasError('minlength') && !signupForm.get('lastName')?.hasError('required')">
+            Last name must be at least 2 characters long.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Username</mat-label>
+          <input matInput id="username" type="text" formControlName="username" required />
+          <mat-error *ngIf="signupForm.get('username')?.hasError('required')">
+            Username is required.
+          </mat-error>
+          <mat-error *ngIf="signupForm.get('username')?.hasError('minlength') && !signupForm.get('username')?.hasError('required')">
+            Username must be at least 2 characters long.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Email</mat-label>
+          <input matInput id="email" type="email" formControlName="email" required />
+          <mat-error *ngIf="signupForm.get('email')?.hasError('required')">
+            Email is required.
+          </mat-error>
+          <mat-error *ngIf="signupForm.get('email')?.hasError('email') && !signupForm.get('email')?.hasError('required')">
+            Enter a valid email address.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Password</mat-label>
+          <input matInput id="password" type="password" formControlName="password" required />
+          <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
+            Password is required.
+          </mat-error>
+          <mat-error *ngIf="!signupForm.get('password')?.hasError('required') && signupForm.get('password')?.hasError('invalidPassword')">
+            Weak password.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="form-group">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput id="confirmPassword" type="password" formControlName="confirmPassword" required />
+          <mat-error *ngIf="signupForm.get('confirmPassword')?.hasError('required')">
+            Confirm password is required.
+          </mat-error>
+          <mat-error *ngIf="!signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.hasError('passwordsMismatch')">
+            Passwords do not match.
+          </mat-error>         
+        </mat-form-field>
+
+        <mat-error *ngIf="!successfulSignup">
+          Email is already used.
+        </mat-error>
+  
+        <button type="submit">Register</button>
+  
+        <div class="login-link">
+          <label>
+            Or already have an account? <a mat-button href="/login">Log in</a>
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>  

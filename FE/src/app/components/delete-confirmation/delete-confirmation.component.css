@@ -1,0 +1,103 @@
+/* Overlay styles */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6)!important; /* Slightly darker overlay for better contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px); /* Add blur effect to background for a modern look */
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease; /* Smooth transition for background */
+}
+
+/* Dialog box styles */
+.dialog-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Animations for smooth modal appearance */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: scale(0.9);
+  }
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+/* Actions section styles (buttons) */
+.dialog-actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Button styles */
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Confirm button styles (for delete and restore) */
+.btn.confirm {
+  background-color: #d32f2f; /* Red for delete */
+  color: white;
+}
+
+.btn.confirm:hover {
+  background-color: #c62828;
+  transform: scale(1.05);
+}
+
+/* Cancel button styles */
+.btn.cancel {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.btn.cancel:hover {
+  background-color: #bdbdbd;
+  transform: scale(1.05);
+}
+
+/* Button hover effects */
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+
+
+/* Optional, add a subtle focus effect */
+.btn:focus {
+  outline: 2px solid #1976d2; /* Blue outline on focus */
+}
+.login-prompt .dialog-box {
+  width: 450px;
+  background-color: #f9f9f9; /* Light background for login prompt */
+  border: 2px solid #007bff; /* Border color for login prompt */
+}
+
+.login-prompt .confirm {
+  background-color: #856a13; /* Green for login */
+}
+

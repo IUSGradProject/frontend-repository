@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Great+Vibes&display=swap');
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.7rem; /* Slightly bigger for emphasis */
+    font-weight: 700;
+    text-transform: uppercase; /* Bold, classic style */
+    letter-spacing: 2px;
+
+    /* Gold gradient but with dark base color */
+    background: linear-gradient(45deg, #8b6f32, #d4af37, #b8860b);
+    -webkit-background-clip: text;
+    color: #5a4d2e; /* Dark gold-brown for better contrast */
+    
+    /* Stronger shadow for readability */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    
+    /* Layout adjustments */
+    display: inline-block;
+    margin-left: 55px;
+    padding-top: 5px;
+}
+
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+    background-color: #F5EFE6;
+    padding: 0 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.logo-img {
+    width: 70px; /* Adjust size */
+    height: 70px; /* Ensure it's a circle */
+    border-radius: 50%; /* Makes it round */
+    object-fit: cover; /* Ensures the image fits well */
+    display: block; /* Removes any extra space */
+    margin-left: 40px;
+  }
+  
+.menu-toggle {
+    display: contents;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    display: none;
+    align-content: start;
+    color: #333;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+a:hover {
+    color: #D8D2C2;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: contents;
+    }
+
+    .header-content {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        height: 100%;
+        width: 250px;
+        background-color: #F5EFE6;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        transition: left 0.3s ease-in-out;
+        z-index: 1000;
+    }
+
+    .header-content.active {
+        left: 0;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    a {
+        font-size: 1.2rem;
+        width: 100%;
+    }
+}

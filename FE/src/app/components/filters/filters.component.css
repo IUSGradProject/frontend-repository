@@ -1,0 +1,36 @@
+mat-card{
+  width: 300px;
+  margin: 20px;
+}
+
+app-filter{
+  height: max-content;
+}
+
+button.clear{
+  margin-top: 10px;
+  background: #5f5f5fbb;
+}
+
+button.clear:hover{
+  margin-top: 10px;
+  background: #adacacbb;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.filters label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filters div {
+  margin-left: 15px;
+}

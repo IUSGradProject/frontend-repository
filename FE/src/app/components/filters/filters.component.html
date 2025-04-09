@@ -1,0 +1,67 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <p>Filters</p>
+
+    
+
+    <div class="filters">
+      <div>
+      <mat-form-field appearance="fill" >
+        <mat-label>Sort by</mat-label>
+        <mat-select (selectionChange)="onChange($event)">
+          @for(sortingCriteria of sorts; track sortingCriteria.name){
+          <mat-option [value]="sortingCriteria">{{sortingCriteria.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+      <!-- <label>
+        Categories:
+        @for(category of categories; track category.id){
+          <mat-checkbox #checkbox [value]="category.name" (change)="updateSelection(category.id, selectedCategories, $event)">
+            {{ category.name }}
+          </mat-checkbox>}
+      </label> -->
+    
+      <label>
+        Styles:
+        @for(style of styles; track style.id){
+          <mat-checkbox #checkbox [value]="style.name" (change)="updateSelection(style.id, selectedStyles, $event)">
+            {{ style.name }}
+          </mat-checkbox>
+      }
+      </label>
+    
+      <label>
+        Brands:
+        @for(brand of brands; track brand.id){
+          <mat-checkbox #checkbox [value]="brand.name" (change)="updateSelection(brand.id, selectedBrands, $event)">
+      {{ brand.name }}
+    </mat-checkbox>
+      }
+      </label>
+
+      <form>
+        <mat-form-field appearance="fill">
+        <mat-label>Min Price</mat-label>
+        <input matInput type="number" [(ngModel)]="minPrice" placeholder="Enter min price" [ngModelOptions]="{standalone: true}" min="0">
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Max Price</mat-label>
+        <input matInput type="number" [(ngModel)]="maxPrice" placeholder="Enter max price" [ngModelOptions]="{standalone: true}" [min]="minPrice">
+      </mat-form-field>
+      </form>
+      
+    </div>
+
+    <div class="filters"> 
+      <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#mobile-filter" aria-expanded="true" aria-controls="mobile-filter" (click)="getFilterRequest()">
+        Filter
+      </button> 
+      <button class="clear" type="button" (click)="clearFilters()" >
+        Clear
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

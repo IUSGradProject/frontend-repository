@@ -1,0 +1,363 @@
+.checkout-card {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.half-width {
+  width: 48%;
+  margin-right: 2%;
+  display: inline-block;
+}
+
+.checkout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.order-price p{
+  margin-bottom: 0;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 10px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 45px;
+}
+
+.checkout-btn:hover {
+  background: #777777bb;
+}
+
+.checkout-btn:disabled {
+  background: #777777bb;
+  cursor: not-allowed;
+}
+
+.checkout-sidebar-price-table {
+  background-color: #fff;
+  padding: 25px;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 70px auto;
+  width: 95%;
+  max-width: 1300px;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: #f5f5f5;
+  color: #333;
+  font-weight: 600;
+}
+
+.table td {
+  background-color: #fff;
+  color: #555;
+}
+
+.table .table-header {
+  width: 25%;
+}
+
+.page-title {
+  font-size: 18px;
+  color: #081828;
+  font-weight: 600;
+  line-height: 28px;
+  margin-bottom: 15px;
+  text-transform: capitalize;
+}
+
+.page-title h5 {
+  font-size: 18px;
+  color: #333;
+}
+
+.breadcrumbs {
+  position: relative;
+  padding: 30px 0;
+  z-index: 2;
+  text-align: left;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 7px 30px rgba(0, 0, 0, 0.075);
+  box-shadow: 0px 7px 30px rgba(0, 0, 0, 0.075);
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .breadcrumbs {
+      padding: 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .breadcrumbs {
+      padding: 30px;
+  }
+}
+
+.breadcrumbs .breadcrumbs-content {
+  position: relative;
+  text-align: left;
+}
+
+.breadcrumbs .breadcrumbs-content .page-title {
+  font-size: 18px;
+  color: #081828;
+  font-weight: 600;
+  position: relative;
+  line-height: 28px;
+  text-transform: capitalize;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .breadcrumbs .breadcrumbs-content .page-title {
+      font-size: 17px;
+      line-height: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .breadcrumbs .breadcrumbs-content .page-title {
+      font-size: 16px;
+      text-align: center;
+      line-height: 26px;
+  }
+}
+
+.breadcrumbs .breadcrumbs-content .breadcrumb-nav {
+  background: transparent;
+  border-radius: 0;
+  margin-bottom: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.breadcrumbs .breadcrumb-nav {
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .breadcrumbs .breadcrumb-nav {
+      text-align: center;
+      margin-top: 15px;
+  }
+}
+
+.breadcrumbs .breadcrumb-nav li {
+  display: inline-block;
+  position: relative;
+  padding-right: 14px;
+  margin-right: 14px;
+  text-transform: capitalize;
+}
+
+.breadcrumbs .breadcrumb-nav li:after {
+  content: "\ea62";
+  font-family: lineIcons;
+  font-size: 12px;
+  position: absolute;
+  top: 3px;
+  right: -7px;
+}
+
+.breadcrumbs .breadcrumb-nav li:last-child {
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbs .breadcrumb-nav li:last-child::after {
+  display: none;
+}
+
+.breadcrumbs .breadcrumb-nav li,
+.breadcrumbs .breadcrumb-nav li a {
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.breadcrumbs .breadcrumb-nav li i,
+.breadcrumbs .breadcrumb-nav li a i {
+  font-size: 13px;
+  display: inline-block;
+  margin-right: 3px;
+  position: relative;
+  top: -1px;
+}
+
+.breadcrumbs .breadcrumb-nav li a {
+  position: relative;
+}
+
+.breadcrumbs .breadcrumb-nav li a:hover {
+  color: #0167F3;
+}
+
+.section {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  position: relative;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .section {
+      padding-top: 60px;
+      padding-bottom: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+      padding-top: 50px;
+      padding-bottom: 50px;
+  }
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 0px 300px;
+  position: relative;
+  z-index: 5;
+  position: relative;
+}
+
+.section-title h2 {
+  font-size: 30px;
+  line-height: 35px;
+  text-transform: capitalize;
+  position: relative;
+  font-weight: 800;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.section-title h2::before {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  content: "";
+  background-color: #0167F3;
+  height: 2px;
+  width: 50px;
+  margin-left: -25px;
+  border-radius: 2px;
+}
+
+.section-title p {
+  font-size: 14px;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .section-title {
+      padding: 0px 250px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .section-title {
+      padding: 0px 20px;
+      margin-bottom: 30px;
+  }
+  .section-title h3 {
+      font-size: 14px;
+  }
+  .section-title h2 {
+      font-size: 24px;
+      line-height: 32px;
+      margin-bottom: 20px;
+  }
+  .section-title p {
+      font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section-title {
+      padding: 0px 10px;
+      margin-bottom: 25px;
+  }
+  .section-title h3 {
+      font-size: 14px;
+  }
+  .section-title h2 {
+      font-size: 20px;
+      line-height: 30px;
+      margin-bottom: 18px;
+  }
+  .section-title p {
+      font-size: 14px;
+  }
+}
+
+.section-title.align-right {
+  padding: 0;
+  padding-left: 600px;
+}
+
+.section-title.align-right h2:before {
+  display: none;
+}
+
+.section-title.align-right h2:after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 50px;
+  background: #0167F3;
+  content: "";
+}
+
+.section-title.align-left {
+  padding: 0;
+  padding-right: 600px;
+}
+
+.section-title.align-left h2:before {
+  left: 0;
+  margin-left: 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .table th, .table td {
+      padding: 8px;
+  }
+
+  .table .table-header {
+      width: 30%;
+  }
+}
+
+mat-paginator{
+  background-color: transparent;
+}

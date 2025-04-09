@@ -1,0 +1,45 @@
+<div class="form-container">
+  <form>
+    <input  type="search" placeholder="Search for items..." [(ngModel)]="filterRequest.query" (input)="getSearchItems()" [ngModelOptions]="{standalone: true}">
+    <mat-select id="category" [(value)]="selectedCategory" (selectionChange)="onCategoryChange($event.value)">
+      <mat-option [value]="0">All Categories <span class="dropdown-indicator">▼</span> </mat-option>
+      <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}} <span class="dropdown-indicator">▼</span></mat-option>
+    </mat-select>
+    
+    <i class="fa fa-search"></i>
+  </form>
+</div>
+
+<div class="content-container">
+  <div class="main-content">
+    <div class="grid-container">
+      @for(element of products; track element.productId){
+      <div class="grid-item" (click)="openProduct(element.productId)">
+        <img [src]="element.image" alt="Product Image">
+        <div class="overlay">
+          <div class="info">
+            <div class="icon" (click)="addToCart($event, element)">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+            <h4>{{ element.name }}</h4>
+            <p>Price: {{ element.price }}</p>
+          </div>
+        </div>
+      </div>}
+    </div>
+
+    <mat-paginator [length]="totalRecords"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[12, 16, 20]"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+
+  <app-filter 
+    class="filters"
+    [selectedCategories]="selectedCategories" 
+    [resetFilters]="resetFilters"
+    [sorts]="sort"
+    (filterRequest)="onChildDataChange($event)">
+  </app-filter>
+</div>
