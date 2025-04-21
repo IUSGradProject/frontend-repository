@@ -20,7 +20,7 @@ export class CheckoutService {
       var request: CartRequest={
         cart: this.cartService.getOrderItems()
       }
-      this.http.post('http://localhost:5014/Carts/Order', request, { withCredentials: true }).subscribe(
+      this.http.post('https://heyappo.me/aurora/api/Carts/Order', request, { withCredentials: true }).subscribe(
         response => {
           this.cartService.loadCartFromBackend()
         },

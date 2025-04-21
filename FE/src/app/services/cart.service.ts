@@ -13,7 +13,7 @@ import { PaginatedResponse } from '../models/paginated-response';
 export class CartService {
   private cart = new BehaviorSubject<CartItem[]>([]);
   private cartSubject = new BehaviorSubject<number>(0);
-  private baseUrl = 'http://localhost:5014/';
+  private baseUrl = 'https://heyappo.me/aurora/api/';
   private cartKey = 'cart';
 
   constructor(private http: HttpClient, private userService: UserService) {

@@ -13,7 +13,7 @@ import { FilterRequest } from '../models/filter.request.model';
   providedIn: 'root',
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:5014/';
+  private baseUrl = 'https://heyappo.me/aurora/api/';
 
   constructor(private http: HttpClient) {}
 
