@@ -40,7 +40,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
+          username: ${{ secrets.SERVER_NAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             echo "Clearing existing contents..."
