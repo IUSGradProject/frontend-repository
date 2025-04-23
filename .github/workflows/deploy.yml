@@ -1,0 +1,55 @@
+name: CI/CD - Deploy Angular App to Ubuntu VM
+
+on:
+  push:
+    branches:
+      - main  # Trigger only on push to 'main'
+
+jobs:
+  deploy:
+    name: Build & Deploy Angular App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Angular app
+        run: npx ng build --configuration production
+
+      - name: Copy build to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "dist/aurora-shop/browser/*"
+          target: "/tmp/aurora-dist"
+
+      - name: Deploy build on server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Navigate to your Angular repository
+            cd /home/Aurora/frontend-repository/FE
+
+            # Remove old content in the web directory
+            sudo rm -rf /var/www/aurora/*
+
+            # Copy new content from the build
+            sudo cp -r /tmp/aurora-dist/* /var/www/aurora/
+
+            # Test nginx config and restart
+            sudo nginx -t
+            sudo systemctl restart nginx
