@@ -3,7 +3,7 @@ name: CI/CD - Deploy Angular App to Ubuntu VM
 on:
   push:
     branches:
-      - main  # Trigger only on push to 'main'
+      - main
 
 jobs:
   deploy:
@@ -19,8 +19,11 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Change directory to FE
+        run: cd /home/Aurora/frontend-repository/FE  # Navigate to our project folder
+
       - name: Install dependencies
-        run: npm install
+        run: npm install  # Now that we are in the correct directory
 
       - name: Build Angular app
         run: npx ng build --configuration production
@@ -41,9 +44,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Navigate to your Angular repository
-            cd /home/Aurora/frontend-repository/FE
-
             # Remove old content in the web directory
             sudo rm -rf /var/www/aurora/*
 
