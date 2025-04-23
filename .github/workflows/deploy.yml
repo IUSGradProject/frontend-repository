@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
+      - name: Checkout source code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -19,37 +19,33 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Change directory to FE
-        run: cd frontend-repository/FE  # Relative path from the root of the repository
-
       - name: Install dependencies
-        run: npm install  # Now that we are in the correct directory
+        working-directory: FE
+        run: npm install
 
       - name: Build Angular app
+        working-directory: FE
         run: npx ng build --configuration production
 
-      - name: Copy build to server
+      - name: Copy build to server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dist/aurora-shop/browser/*"
+          source: "FE/dist/aurora-shop/browser/*"
           target: "/tmp/aurora-dist"
 
-      - name: Deploy build on server
+      - name: Deploy on server via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Remove old content in the web directory
+            echo "Clearing existing contents..."
             sudo rm -rf /var/www/aurora/*
-
-            # Copy new content from the build
+            echo "Deploying new build..."
             sudo cp -r /tmp/aurora-dist/* /var/www/aurora/
-
-            # Test nginx config and restart
-            sudo nginx -t
-            sudo systemctl restart nginx
+            echo "Restarting Nginx..."
+            sudo nginx -t && sudo systemctl restart nginx
