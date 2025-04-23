@@ -27,6 +27,13 @@ jobs:
         working-directory: FE
         run: npx ng build --configuration production
 
+      - name: Debug - Print Env Variables (without secrets)
+        run: |
+          echo "Checking non-secret environment variables..."
+          echo "SERVER_IP is: ${{ secrets.SERVER_IP }}"
+          echo "SERVER_USER is: ${{ secrets.SERVER_USER }}"
+          echo "SSH_PRIVATE_KEY exists: ${{ secrets.SSH_PRIVATE_KEY != '' }}"
+        
       - name: Copy build to server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
