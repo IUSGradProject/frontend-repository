@@ -20,7 +20,7 @@ jobs:
           node-version: '18'
 
       - name: Change directory to FE
-        run: cd /home/Aurora/frontend-repository/FE  # Navigate to our project folder
+        run: cd frontend-repository/FE  # Relative path from the root of the repository
 
       - name: Install dependencies
         run: npm install  # Now that we are in the correct directory
