@@ -38,7 +38,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
+          username: ${{ secrets.SERVER_USER}}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "FE/dist/aurora-shop/browser/*"
           target: "/tmp/aurora-dist"
@@ -47,7 +47,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_NAME }}
+          username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             echo "Clearing existing contents..."
