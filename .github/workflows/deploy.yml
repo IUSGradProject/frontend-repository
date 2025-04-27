@@ -1,0 +1,61 @@
+name: CI/CD - Deploy Angular App to Ubuntu VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build & Deploy Angular App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: FE
+        run: npm install
+
+      - name: Build Angular app
+        working-directory: FE
+        run: npx ng build --configuration production
+
+      - name: Clear temp deploy folder on server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            rm -rf /tmp/aurora-dist && mkdir -p /tmp/aurora-dist
+
+      - name: Copy build to server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "FE/dist/aurora-shop/browser/*"
+          target: "/tmp/aurora-dist"
+          strip_components: 4
+
+      - name: Deploy on server via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Clearing existing contents..."
+            sudo rm -rf /var/www/aurora/*
+            echo "Deploying new build..."
+            sudo cp -r /tmp/aurora-dist/* /var/www/aurora/
+            echo "Restarting Nginx..."
+            sudo nginx -t && sudo systemctl restart nginx
