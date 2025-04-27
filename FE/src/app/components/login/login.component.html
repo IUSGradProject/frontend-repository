@@ -6,12 +6,23 @@
       <mat-form-field appearance="fill" class="form-group">
         <mat-label>Email</mat-label>
         <input matInput id="email" type="text" formControlName="email" required />
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+          Email is required.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="form-group">
         <mat-label>Password</mat-label>
         <input matInput id="password" type="password" formControlName="password" required />
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+          Password is required.
+        </mat-error>
       </mat-form-field>
+
+      <mat-error *ngIf="emptyFields">
+        Please fill in both email and password fields.
+      </mat-error>
+      
       <mat-error *ngIf="!successfulLogin">
         Username or password are invalid
       </mat-error>

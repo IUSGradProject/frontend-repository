@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {  ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +22,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     CommonModule,
   ],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrl: './signup.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class SignupComponent {
   signupForm!: FormGroup

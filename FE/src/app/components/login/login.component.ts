@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {  ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -24,11 +25,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     CommonModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent{
   loginForm!: FormGroup
   successfulLogin: boolean = true;
+  emptyFields: boolean = false;
 
   constructor(private userService: UserService,
     private snackBar: MatSnackBar,  private router: Router) {
@@ -51,7 +54,13 @@ export class LoginComponent{
     
   }
   loginClicked(){
-    if (this.loginForm.valid) {
+    if (this.loginForm.invalid) {
+      this.emptyFields = true;             
+      this.successfulLogin = true;          
+      return;                               
+    }
+
+    this.emptyFields = false;  
       const loginData: LoginUser = this.loginForm.value as LoginUser;
       this.userService.loginUser(loginData).subscribe(
         response => {
@@ -63,4 +72,4 @@ export class LoginComponent{
       )
     }
   }
-}
+

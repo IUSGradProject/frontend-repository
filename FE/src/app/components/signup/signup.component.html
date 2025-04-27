@@ -3,7 +3,7 @@
       <h2>Sign up</h2>
       <form [formGroup]="signupForm" (ngSubmit)="registerClicked()">
         
-        <mat-form-field appearance="fill" class="form-group">
+        <mat-form-field appearance="fill" class="form-group" >
           <mat-label>First name</mat-label>
           <input matInput id="firstName" type="text" formControlName="firstName" required />
           <mat-error *ngIf="signupForm.get('firstName')?.hasError('required')">
@@ -52,8 +52,9 @@
           <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
             Password is required.
           </mat-error>
-          <mat-error *ngIf="!signupForm.get('password')?.hasError('required') && signupForm.get('password')?.hasError('invalidPassword')">
-            Weak password.
+          <mat-error  class="long-password-error"  *ngIf="!signupForm.get('password')?.hasError('required') && signupForm.get('password')?.hasError('invalidPassword')">
+            Password must be at least 8 characters, with uppercase, lowercase, number, and symbol.
+
           </mat-error>
         </mat-form-field>
   
@@ -68,7 +69,7 @@
           </mat-error>         
         </mat-form-field>
 
-        <mat-error *ngIf="!successfulSignup">
+        <mat-error class="full-width" *ngIf="!successfulSignup">
           Email is already used.
         </mat-error>
   

@@ -9,6 +9,8 @@ import { CartItem } from '../../models/product/cart.item.model';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-product-overview',
@@ -32,7 +34,8 @@ export class ProductOverviewComponent implements OnInit {
     private cartService: CartService,
     private router: Router,
     private snackBar: MatSnackBar, 
-    private userService: UserService
+    private userService: UserService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +47,10 @@ export class ProductOverviewComponent implements OnInit {
     )
   }
 
+  goBack() {
+    this.location.back();
+  }
+  
   private getId(): void{
     this.route.params.subscribe(params => {
       this.productId = params['id'];

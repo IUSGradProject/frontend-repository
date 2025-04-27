@@ -2,43 +2,163 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vw;
+  min-height: 75vh;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .login-container {
   width: 100%;
-  max-width: 400px;
-  padding: 24px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  background-color: #ffffff;
+  padding: 10px 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 24px;
-  font-size: 1.5rem;
+  margin-bottom: 32px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
 }
 
 mat-form-field {
-  width: 100%;
-  margin-bottom: 16px;
+  flex: 1 1 calc(50% - 10px);
+  min-width: 200px;
+}
+
+mat-form-field.full-width {
+  flex: 1 1 100%;
 }
 
 button {
   width: 100%;
-  margin-top: 16px;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 1.1rem;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #5a4d2e;
 }
 
 .login-link {
+  width: 100%;
   text-align: center;
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
-.login-link a {
+.login-container .login-link a {
+  color: #5a4d2e;
+  font-weight: bold;
   text-decoration: none;
 }
 
-mat-error{
-  text-align: center;
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+mat-form-field {
+  flex: 1 1 calc(50% - 10px);
+  min-width: 200px;
+  position: relative;
+}
+
+.login-container .mat-mdc-form-field .mdc-text-field--filled {
+  background-color: transparent !important;
+}
+
+
+
+.mat-mdc-form-field .mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-focused .mdc-text-field__input {
+  background-color: transparent !important;
+}
+
+.login-container .mat-mdc-form-field.mat-mdc-form-field-focused .mdc-floating-label {
+  color: #5a4d2e !important;
+}
+
+.mat-mdc-form-field .mdc-floating-label--required::after {
+  display: none !important;
+}
+
+.mat-mdc-form-field .mdc-text-field__input {
+  padding: 8px 0 !important;
+}
+
+.login-container .mat-mdc-form-field {
+  width: 100%;
+}
+
+.login-container .mdc-text-field--filled {
+  box-sizing: border-box;
+}
+
+.mat-mdc-form-field .mdc-floating-label {
+  color: #333 !important; 
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-focused .mdc-floating-label {
+  color: #5a4d2e !important; 
+}
+
+
+.mat-mdc-form-field {
+  --mdc-text-field-idle-line-color: #ccc !important; 
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-focused {
+  --mdc-text-field-hover-line-color: #5a4d2e !important;
+}
+
+mat-error {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  width: 100%;
+  font-size: 0.7rem;
+  color: #d32f2f;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  justify-content: space-between;
+  position: relative;
+}
+
+
+.login-container {
+  padding-bottom: 30px;
+}
+
+.long-password-error {
+  bottom: -40px;
+  font-size: 0.7rem;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: left;
 }
