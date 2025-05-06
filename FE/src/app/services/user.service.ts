@@ -8,7 +8,7 @@ import { User } from "../models/user-model";
 import * as jwt_decode from "jwt-decode";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError } from 'rxjs/operators';
-
+import { environment } from "../../environments/environment";
 import { Router } from "@angular/router";
 import { RoleResponse } from "../models/role.response.mode";
 
@@ -16,7 +16,7 @@ import { RoleResponse } from "../models/role.response.mode";
     providedIn: 'root',
   })
 export class UserService{
-    private baseUrl = 'https://heyappo.me/aurora/api/';
+    private baseUrl = environment.apiUrl;
     constructor(private http: HttpClient, private router: Router,private snackBar: MatSnackBar) {
     }
 

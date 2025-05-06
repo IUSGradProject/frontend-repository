@@ -8,12 +8,13 @@ import { LoV } from '../models/lov.model';
 import { ProductBaseInfo } from '../models/product/product.base.info.model';
 import { EditProduct } from '../models/product/edit.product.model';
 import { FilterRequest } from '../models/filter.request.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private baseUrl = 'https://heyappo.me/aurora/api/';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
