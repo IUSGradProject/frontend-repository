@@ -6,14 +6,17 @@ import { UserService } from './user.service';
 import { __param } from 'tslib';
 import { OrderItem } from '../models/product/order.item.model';
 import { PaginatedResponse } from '../models/paginated-response';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
+
+  private baseUrl = environment.apiUrl;
   private cart = new BehaviorSubject<CartItem[]>([]);
   private cartSubject = new BehaviorSubject<number>(0);
-  private baseUrl = 'https://heyappo.me/aurora/api/';
+  //private baseUrl = 'https://heyappo.me/aurora/api/';
   private cartKey = 'cart';
 
   constructor(private http: HttpClient, private userService: UserService) {
