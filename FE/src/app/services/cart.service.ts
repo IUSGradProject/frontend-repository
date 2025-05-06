@@ -20,6 +20,7 @@ export class CartService {
   private cartKey = 'cart';
 
   constructor(private http: HttpClient, private userService: UserService) {
+    console.log('Base URL:', this.baseUrl);
     this.initializeCart();
 
     this.userService.getLoginStatus().subscribe((isLoggedIn) => {
