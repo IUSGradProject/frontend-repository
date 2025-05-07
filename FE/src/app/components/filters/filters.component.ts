@@ -48,7 +48,8 @@ export class FiltersComponent implements OnInit {
   selectedBrands!: number[];
   categoriesVisible: boolean = false;
   stylesVisible: boolean = false;
- // colorsVisible: boolean = false;
+  sortBy: string | undefined;
+  sortDesc: boolean = false;
 
   currentPriceRange: [number, number] = [50, 300];
 
@@ -86,7 +87,9 @@ export class FiltersComponent implements OnInit {
       styles: this.selectedStyles,
       brands: this.selectedBrands,
       minPrice: this.minPrice,
-      maxPrice: this.maxPrice
+      maxPrice: this.maxPrice,
+      sortBy: this.sortBy, // Add sorting field
+      sortDesc: this.sortDesc
     })
   }
 
@@ -106,8 +109,10 @@ export class FiltersComponent implements OnInit {
     this.selectedStyles = [];
     this.selectedBrands = [];
     this.minPrice = 0;
-    this.maxPrice = 20000;
-    this.currentPriceRange = [0, 500];
+    this.maxPrice = 50000;
+    this.currentPriceRange = [0, 50000];
+    this.sortBy = undefined; 
+    this.sortDesc = false;
   }
 
   clearFilters(){
@@ -121,17 +126,25 @@ export class FiltersComponent implements OnInit {
       styles: [],
       brands: [],
       minPrice: 0,
-      maxPrice: 50000
+      maxPrice: 50000,
+      sortBy: undefined, 
+      sortDesc: false 
     });
   }
 
   onChange(event: any){
+
+    const selectedSort = event.value as Sort; 
+    this.sortBy = selectedSort?.sortBy; 
+    this.sortDesc = selectedSort?.sortDesc || false;
     this.filterRequest.emit({
       categories: this.selectedCategories || [],
       styles: this.selectedStyles || [],
       brands: this.selectedBrands || [],
       minPrice: this.minPrice,
-      maxPrice: this.maxPrice
+      maxPrice: this.maxPrice,
+      sortBy: this.sortBy, 
+      sortDesc: this.sortDesc
     });
     
   }
