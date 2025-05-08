@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { CheckoutService } from './services/checkout.service';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,10 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 })
 export class AppComponent {
   title = 'aurora-shop';
+
+  constructor(private router: Router) {}
+
+  isProductsListPage(): boolean {
+    return this.router.url.includes('/shop'); 
+  }
 }

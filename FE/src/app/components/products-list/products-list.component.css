@@ -7,6 +7,18 @@
     padding: 10px;
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    cursor: pointer;
+  }
 form {
     display: flex; 
     justify-content: space-between;
@@ -228,4 +240,89 @@ mat-paginator {
     font-size: 12px;
     margin-left: 5px;
     color: #888; /* Light grey color for the indicator */
+  }
+
+  /* Container for "No Products Found" */
+.no-products-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 50vh; /* Ensure it takes up at least half the viewport height */
+    text-align: center;
+  }
+  
+  /* Styles for "No Products Found" */
+  .no-products-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: #333;
+    font-family: Arial, sans-serif;
+  }
+  
+  .no-products-found .icon-container {
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+  }
+  
+  .no-products-found i {
+    color: #5a4d2e; /* Red icon for emphasis */
+    font-size: 5rem; /* Larger icon */
+  }
+  
+  .no-products-found h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .no-products-found p {
+    font-size: 1rem;
+    color: #777;
+    max-width: 400px; /* Limit width for readability */
+    margin: 0 auto; /* Center the paragraph */
+  }
+  
+  /* Bounce animation */
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* Loading container */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh; /* Ensure it takes up enough vertical space */
+    text-align: center;
+  }
+  
+  /* Spinner animation */
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1); /* Light grey border */
+    border-left-color: #07051a; /* Accent color */
+    border-radius: 50%; /* Make it circular */
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite; /* Rotate continuously */
+    margin-bottom: 10px; /* Add spacing between spinner and text */
+  }
+  
+  /* Spin animation */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg); /* Start at 0 degrees */
+    }
+    100% {
+      transform: rotate(360deg); /* Complete one full rotation */
+    }
   }

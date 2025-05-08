@@ -17,6 +17,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { getSortData } from '../../data/sort.data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../services/user.service';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products-list',
@@ -45,7 +47,8 @@ export class ProductsListComponent implements OnInit {
   sort = getSortData();
   selectedCategory: number = 0; 
   isLoggedIn!: boolean;
-
+  private searchSubject = new Subject<string>();
+  isLoading: boolean = true;
 
   constructor(private productService: ProductService, 
     private router: Router, 
@@ -59,7 +62,14 @@ export class ProductsListComponent implements OnInit {
     this.loadCategories();
     this.userService.getLoginStatus().subscribe(loggedIn =>
       this.isLoggedIn = loggedIn
-    )
+    );
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged() 
+    ).subscribe(query => {
+      this.filterRequest.query = query;
+      this.getSearchItems();
+    });
   }
 
   onCategoryChange(categoryId: number) {
@@ -119,6 +129,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   private loadProducts(): void {
+    this.isLoading = true;
     console.log(this.filterRequest)
     if (this.filterRequest.categories.length === 0) {
       this.filterRequest.categories = [];
@@ -136,7 +147,7 @@ export class ProductsListComponent implements OnInit {
         console.log("Products Loaded:", this.products.length);
         console.log("Received Products:", response.data);
         console.log("Sending Filter Request:", this.filterRequest);
-
+        this.isLoading = false
       });
   }  
 
@@ -183,8 +194,32 @@ export class ProductsListComponent implements OnInit {
     this.openSnackBar('Product successfully added to cart!', 'Close', 'toast-info', false);
   }}
 
-  getSearchItems(): void{
-    this.loadProducts();
-    this.resetFilters = true
+  
+    onSearchInput(event: Event): void {
+      const query = (event.target as HTMLInputElement).value;
+      this.searchSubject.next(query); 
+    }
+  
+    getSearchItems(): void {
+      const query = this.filterRequest.query?.trim().toLowerCase() || '';
+  
+      if (query) {
+        this.products = this.allProducts.filter(product =>
+          product.name.toLowerCase().includes(query)
+        );
+      } else {
+        this.products = [...this.allProducts]; 
+      }
+  
+      console.log("Filtered Products:", this.products.length);
+    }
+  
+    highlightMatch(name: string, query: string | undefined): string {
+      const safeQuery = query?.trim().toLowerCase() || ''; 
+      if (!safeQuery) return name;
+    
+      const regex = new RegExp(`(${safeQuery})`, 'gi');
+      return name.replace(regex, '<strong>$1</strong>');
+    }
   }
-}
+
