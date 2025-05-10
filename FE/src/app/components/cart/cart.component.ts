@@ -5,11 +5,13 @@ import { CartItem } from '../../models/product/cart.item.model';
 import { CartService } from '../../services/cart.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { QuantityValidatorDirective } from '../../services/quantity-validator.directive';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, QuantityValidatorDirective],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
 })
@@ -19,7 +21,7 @@ export class CartComponent implements OnInit {
   checkedItems: CartItem[]= [];
   totalPrice: number = 0
 
-  constructor(private cartService: CartService, private router: Router) {
+  constructor(private cartService: CartService, private router: Router, private snackBar: MatSnackBar) {
     this.cartItems$ = this.cartService.getCart();
   }
 
@@ -34,6 +36,13 @@ export class CartComponent implements OnInit {
 
     return total
   }
+  openSnackBar(message: string, action: string, className: string): void {
+    console.log('Opening SnackBar with class:', className);
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      panelClass: [className]
+    });
+  }
 
   toggleChecked(item: CartItem): void {
     const index = this.checkedItems.findIndex((i) => i.productId === item.productId);
@@ -47,6 +56,7 @@ export class CartComponent implements OnInit {
 
   removeFromCart(productId: string): void {
     this.cartService.removeFromCart(productId);
+    this.openSnackBar('Item removed from cart', 'Close', 'toast-success');
   }
 
   assignQuantity(productId: string, quantity: number): void {
@@ -60,7 +70,30 @@ export class CartComponent implements OnInit {
     this.totalPrice = this.calculateCheckedTotal();
   }
   
+  validateQuantity(item: CartItem): void {
+    if (item.quantity < 1) {
+      item.quantity = 1;
+    } else if (item.quantity > item.available) {
+      item.quantity = 1;
+      this.openSnackBar(`Only ${item.available} items available in stock. Please adjust your quantity.`, 'Close', 'toast-info');
+    }
+  
+    this.assignQuantity(item.productId, item.quantity);
+  }
 
+  preventInvalidKeys(event: KeyboardEvent): void {
+    const invalidKeys = ['e', 'E', '+', '-', '.', ','];
+    if (invalidKeys.includes(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+  onQuantityExceeded(item: CartItem): void {
+    this.openSnackBar(`Only ${item.available} items available in stock. Please adjust your quantity.`, 'Close', 'toast-info');
+    item.quantity = 1;
+    this.assignQuantity(item.productId, 1);
+  }
+  
   proceedToCheckout(): void {
     this.cartService.saveOrderItems(this.checkedItems)
     this.router.navigate(['checkout'])

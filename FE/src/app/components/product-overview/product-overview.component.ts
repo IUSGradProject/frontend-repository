@@ -10,12 +10,12 @@ import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
 import { Location } from '@angular/common';
-
+import { QuantityValidatorDirective } from '../../services/quantity-validator.directive';
 
 @Component({
   selector: 'app-product-overview',
   standalone: true,
-  imports: [FormsModule, CommonModule, DeleteConfirmationComponent],
+  imports: [FormsModule, CommonModule, DeleteConfirmationComponent, QuantityValidatorDirective],
   templateUrl: './product-overview.component.html',
   styleUrl: './product-overview.component.css'
 })
@@ -73,9 +73,19 @@ export class ProductOverviewComponent implements OnInit {
     
   }
 
+  onQuantityExceeded(max: number): void {
+    this.openSnackBar(`Only ${max} items available in stock. Please adjust your quantity.`, 'Close', 'toast-info');
+    this.quantity = 1;
+    this.updateTotalPrice(); 
+  }
+  
+
   updateTotalPrice(): void {
-    if(this.quantity > 0 && this.quantity <= this.product.available)
-      this.totalPrice = (this.product.price * this.quantity)
+    if (this.quantity > 0 && this.quantity <= this.product.available) {
+      this.totalPrice = this.product.price * this.quantity; 
+    } else {
+      this.totalPrice = this.product.price; 
+    }
   }
   
   addToCart(product: ProductOverview): void {

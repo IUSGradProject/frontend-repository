@@ -197,7 +197,7 @@ export class AdminDashboardComponent implements OnInit{
     this.modalMessage = 'This is a permanent action. Are you sure you want to deactivate this user?';
     this.modalConfirmText = 'Deactivate';
     this.modalCancelText = 'Cancel';
-    this.deleteItem = user.email; // storing email like before
+    this.deleteItem = user.email; 
   }
   
   onConfirm(): void {

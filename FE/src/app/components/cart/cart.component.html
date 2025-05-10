@@ -24,14 +24,19 @@
               <div class="add-to-cart-section">
                 <label for="quantity">Quantity: </label>
                 <input
-                  class="quantity"
-                  (input)="assignQuantity(item.productId, item.quantity)"
-                  type="number"
-                  [id]="'quantity-' + item.productId"
-                  [(ngModel)]="item.quantity"
-                  [min]="1"
-                  [max]="item.available"
-                />
+                class="quantity"
+                type="number"
+                [id]="'quantity-' + item.productId"
+                [(ngModel)]="item.quantity"
+                [min]="1"
+                [max]="item.available"
+                appQuantityValidator
+                (quantityExceeded)="onQuantityExceeded(item)"
+                (keydown)="preventInvalidKeys($event)"
+                (blur)="validateQuantity(item)"
+                (input)="assignQuantity(item.productId, item.quantity)"
+              />
+              
               </div>
             </div>
           </div>

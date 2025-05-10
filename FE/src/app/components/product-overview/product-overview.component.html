@@ -27,7 +27,17 @@
                 <hr>
                 <div class="add-to-cart-section">
                 <label for="quantity">Quantity: </label>
-                <input class="quantity" type="number" [id]="quantity" [(ngModel)]="quantity" (input)="updateTotalPrice()" [min]="1" [max]="product.available">
+                <input
+  id="quantity"
+  class="quantity"
+  type="number"
+  [(ngModel)]="quantity"
+  (input)="updateTotalPrice()"
+  [min]="1"
+  [max]="product.available"
+  appQuantityValidator
+  (quantityExceeded)="onQuantityExceeded($event)"
+/>
                 <label class="price">Subtotal: {{ totalPrice | currency }}</label>
             </div>
             <div class="actions">

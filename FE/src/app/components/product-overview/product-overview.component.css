@@ -126,6 +126,7 @@ input.quantity{
     background-color: white;
     border-radius: 20px;
     text-align: center;
+    width:10px
 }
 
 label.price{
@@ -173,11 +174,11 @@ span.price {
 }
 
 #quantity {
-    width: 80px;
+    width: 45px;
     padding: 5px;
     text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #000000;
+    border-radius: 15px;
 }
 
 .actions {
