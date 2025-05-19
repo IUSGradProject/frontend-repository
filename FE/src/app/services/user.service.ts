@@ -58,7 +58,7 @@ export class UserService{
                         panelClass: ['toast-error']
                     });
                 }
-                throw error; // Re-throw the error for further handling
+                throw error; 
             })
         );
     }
@@ -90,6 +90,9 @@ export class UserService{
     logoutUser() {
         this.http.get(`${this.baseUrl}Users/Logout`, { withCredentials: true }).subscribe({
             next: () => {
+                sessionStorage.clear();
+                localStorage.clear();
+                this.loginStatus.next(false);
                 this.successfulLogout(); 
                 this.router.navigate(['/login']);
             },
