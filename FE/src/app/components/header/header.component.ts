@@ -18,26 +18,33 @@ export class HeaderComponent {
  totalItems!: Observable<number>;
  isAdmin!: boolean;
 
- constructor(private cartService: CartService, private userService: UserService){
-  this.userService.getLoginStatus().subscribe((loggedIn) => {
-    this.isLoggedIn = loggedIn
-    if(this.isLoggedIn){
-      this.isAdmin = this.userService.isAdmin()
-      console.log(this.isAdmin)
-    }
-  })
+ constructor(private cartService: CartService, private userService: UserService, private router: Router){
+  
  }
 
  ngOnInit(): void {
+  
   this.totalItems = this.cartService.getCartItemCount();
+  this.userService.getLoginStatus().subscribe(status => {
+    this.isLoggedIn = status;
+    console.log("Login status changed to", status);
+  });
+  
 }
 
-  logOut(){
-    sessionStorage.removeItem("cart");
-    localStorage.removeItem("cart"); 
-    this.userService.logoutUser();
-  }
-
+// In HeaderComponent
+logOut() {
+  console.log("Logout button clicked");
+  this.userService.logoutUser().subscribe({
+    next: () => {
+      // Cart reset should be handled by CartService observing login status
+      this.router.navigate(['/login']);
+    },
+    error: (error) => {
+      console.error("Logout failed:", error);
+    }
+  });
+}
   menuActive = false;
   isLargeScreen = window.innerWidth > 768;
 

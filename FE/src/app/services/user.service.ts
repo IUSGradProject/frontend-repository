@@ -7,10 +7,12 @@ import { LoginResponse } from "../models/login-response";
 import { User } from "../models/user-model";
 import * as jwt_decode from "jwt-decode";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError } from 'rxjs/operators';
+import { catchError,timeout } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
 import { Router } from "@angular/router";
 import { RoleResponse } from "../models/role.response.mode";
+
+
 
 @Injectable({
     providedIn: 'root',
@@ -20,16 +22,20 @@ export class UserService{
     constructor(private http: HttpClient, private router: Router,private snackBar: MatSnackBar) {
     }
 
-    private loginStatus = new BehaviorSubject<boolean>(this.getLoggedInFromStorage());
+    
 
-    private getLoggedInFromStorage(): boolean {
-        const storedValue = sessionStorage.getItem('loggedIn');
-        return storedValue === 'true';
-      }
+    private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus());
 
-    getLoginStatus(): Observable<boolean> {
-        return this.loginStatus.asObservable();
-    }
+getLoginStatus(): Observable<boolean> {
+  return this.loginStatus.asObservable();
+}
+
+checkLoginStatus(): boolean {
+  const token = sessionStorage.getItem('token');
+  const loggedIn = sessionStorage.getItem('loggedIn');
+  return !!token && loggedIn === 'true';
+}
+
 
     registerUser(userData: CreateAccountRequest): Observable<RoleResponse>{
         return this.http.post<RoleResponse>(`${this.baseUrl}Users`, userData);
@@ -70,7 +76,7 @@ export class UserService{
     }
 
     isAuthenticated(): boolean{
-        return this.getLoggedInFromStorage()
+        return this.checkLoginStatus()
     }
 
     successfulLogin(role: string, firstName: string, lastName: string, email: string){
@@ -82,25 +88,33 @@ export class UserService{
         this.loginStatus.next(true)
     }
 
-    successfulLogout(){
-        sessionStorage.clear();
-        this.loginStatus.next(false)
-    }
+    // successfulLogout(){
+    //     sessionStorage.clear();
+    //     this.loginStatus.next(false)
+    // }
 
-    logoutUser() {
-        this.http.get(`${this.baseUrl}Users/Logout`, { withCredentials: true }).subscribe({
-            next: () => {
-                sessionStorage.clear();
-                localStorage.clear();
-                this.loginStatus.next(false);
-                this.successfulLogout(); 
-                this.router.navigate(['/login']);
-            },
-            error: (error) => {
-                console.error("Logout failed:", error);
-            }
-        });
-    }
+  // In UserService
+logoutUser(): Observable<any> {
+    return this.http.get(`${this.baseUrl}Users/Logout`, { withCredentials: true }).pipe(
+      tap(() => {
+        console.log("Calling successfulLogout");
+        this.successfulLogout(); 
+        console.log("Logged out");
+      }),
+      catchError((error) => {
+        console.error("Logout failed:", error);
+        throw error; 
+      })
+    );
+  }
+  
+  private successfulLogout(): void {
+    console.log("Before clear", sessionStorage);
+    sessionStorage.clear();
+    localStorage.clear();
+    console.log("After clear", sessionStorage);
+    this.loginStatus.next(false); 
+  }
 
     deactivateUser(email: string): Observable<any> {
       if (!email) {

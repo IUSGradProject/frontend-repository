@@ -16,16 +16,17 @@
         <nav class="nav-links">
             <a href="/">HOME</a>
             <a href="/shop">SHOP</a>
-            @if(isAdmin){
-                <a href="/dashboard" class="icon">DASHBOARD</a>
-            }
+            <a *ngIf="isAdmin" href="/dashboard" class="icon">DASHBOARD</a>
+
             <a href="/cart" class="icon"><i class="fa fa-shopping-bag"></i> CART ({{ totalItems | async }})</a>
-            @if(!isLoggedIn){
+            <ng-container *ngIf="!isLoggedIn; else loggedInBlock">
                 <a href="/login" class="icon"><i class="fa fa-user"></i> LOG IN</a>
-            } @else {
-                <a href="/purchase-history" class="icon"><i class="fa fa-user"></i>  PROFILE</a>
-                <a href="/login" class="icon" (click)="logOut()"> LOG OUT</a>
-            }
+            </ng-container>
+            <ng-template #loggedInBlock>
+                <a href="/purchase-history" class="icon"><i class="fa fa-user"></i> PROFILE</a>
+                <a  class="icon" (click)="logOut()"> LOG OUT</a>
+            </ng-template>
+            
         </nav>
     </div>
 </header>
@@ -42,7 +43,8 @@
             <a href="/login" class="icon" (click)="closeMenu()"><i class="fa fa-user"></i> LOG IN</a>
         } @else {
             <a href="/purchase-history" (click)="closeMenu()" class="icon">PURCHASES</a>
-            <a href="/login" class="icon" (click)="closeMenu()" (click)="logOut()"><i class="fa fa-user"></i> LOG OUT</a>
+            <!-- <a href="/login" class="icon" (click)="logOut()"> LOG OUT</a>
+        } -->
         }
     </nav>
 </div>

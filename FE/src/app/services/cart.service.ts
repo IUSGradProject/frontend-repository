@@ -28,6 +28,10 @@ export class CartService {
         this.saveCartAfterLogin();
         this.loadCartFromBackend();
       }
+      else {
+        this.clearLocalCart(); // Important
+        this.updateCart([]);   // Clear observable cart state
+      }
     });
   }
 
