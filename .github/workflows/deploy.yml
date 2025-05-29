@@ -69,3 +69,14 @@ jobs:
             -H "Authorization: Bearer $GH_PAT" \
             https://api.github.com/repos/IUSGradProject/aurora-testing/actions/workflows/availability-test.yml/dispatches \
             -d '{"ref":"main"}'
+
+      
+      - name: Trigger Integration Test
+        env: 
+          GH_PAT: ${{ secrets.GH_PAT_TRIGGER_TESTS }}
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_PAT" \
+            https://api.github.com/repos/IUSGradProject/aurora-testing/actions/workflows/integration-test.yml/dispatches \
+            -d '{"ref":"main"}'
