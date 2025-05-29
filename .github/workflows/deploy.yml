@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  #So it can be run throught GitHub UI 
 
 jobs:
   deploy:
@@ -59,3 +60,12 @@ jobs:
             sudo cp -r /tmp/aurora-dist/* /var/www/aurora/
             echo "Restarting Nginx..."
             sudo nginx -t && sudo systemctl restart nginx
+      - name: Trigger Availability Test or aurora-testing repo
+        env: 
+          GH_PAT: ${{ secrets.GH_PAT_TRIGGER_TESTS }}
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_PAT" \
+            https://api.github.com/repos/IUSGradProject/aurora-testing/actions/workflows/availability-test.yml/dispatches \
+            -d '{"ref":"main"}'
