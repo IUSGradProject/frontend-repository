@@ -60,7 +60,7 @@ jobs:
             sudo cp -r /tmp/aurora-dist/* /var/www/aurora/
             echo "Restarting Nginx..."
             sudo nginx -t && sudo systemctl restart nginx
-      - name: Trigger Availability Test or aurora-testing repo
+      - name: Trigger Availability Test
         env: 
           GH_PAT: ${{ secrets.GH_PAT_TRIGGER_TESTS }}
         run: |
