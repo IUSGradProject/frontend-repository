@@ -27,18 +27,17 @@ export class HeaderComponent {
   this.totalItems = this.cartService.getCartItemCount();
   this.userService.getLoginStatus().subscribe(status => {
     this.isLoggedIn = status;
+     this.isAdmin = this.userService.isAdmin(); 
     console.log("Login status changed to", status);
   });
   
 }
 
-// In HeaderComponent
 logOut() {
   console.log("Logout button clicked");
   this.userService.logoutUser().subscribe({
     next: () => {
-      // Cart reset should be handled by CartService observing login status
-      this.router.navigate(['/login']);
+          this.router.navigate(['/login']);
     },
     error: (error) => {
       console.error("Logout failed:", error);
