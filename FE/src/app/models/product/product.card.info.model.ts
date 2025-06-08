@@ -6,4 +6,5 @@ export interface ProductCardInfo {
     available: number;
     brand: string;
     style: string;
+    description: string;
   }

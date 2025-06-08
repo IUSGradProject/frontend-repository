@@ -5,6 +5,7 @@ export interface CartItem {
   price: number;
   available: number;
   quantity: number;
+  
 }
 
 export interface CartRequest {

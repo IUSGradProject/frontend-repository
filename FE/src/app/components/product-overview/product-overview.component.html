@@ -20,6 +20,7 @@
             </p>
             <div class="brand-selector">
                 <h5>Brand: {{ product.brand.name }} </h5>
+                <h5 *ngIf="product.style">Style: {{ product.style.name }}</h5>
             </div>
             </div>
             
@@ -41,8 +42,8 @@
                 <label class="price">Subtotal: {{ totalPrice | currency }}</label>
             </div>
             <div class="actions">
-                <button (click)="addToCart(product)">Add to Cart</button>
-                <button (click)="buyNow(product)" [disabled]="!isLoggedIn">Buy Now</button>
+                <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
+                <button class="buy-now" (click)="buyNow(product)" [disabled]="!isLoggedIn">Buy Now</button>
             </div>
             </div>
             <app-delete-confirmation 

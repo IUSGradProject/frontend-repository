@@ -6,7 +6,7 @@
 
     <div class="filters">
       <div>
-      <mat-form-field appearance="fill" >
+      <mat-form-field appearance="fill" class="sort-select" >
         <mat-label>Sort by</mat-label>
         <mat-select (selectionChange)="onChange($event)">
           @for(sortingCriteria of sorts; track sortingCriteria.name){
@@ -15,13 +15,6 @@
         </mat-select>
       </mat-form-field>
     </div>
-      <!-- <label>
-        Categories:
-        @for(category of categories; track category.id){
-          <mat-checkbox #checkbox [value]="category.name" (change)="updateSelection(category.id, selectedCategories, $event)">
-            {{ category.name }}
-          </mat-checkbox>}
-      </label> -->
     
       <label>
         Styles:

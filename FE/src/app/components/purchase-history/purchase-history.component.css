@@ -14,6 +14,14 @@
     margin-bottom: 20px;
     table-layout: fixed;
     border-collapse: collapse;
+      border-radius: 8px;
+    overflow: hidden; /* For rounded corners */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.table tbody tr:hover {
+    background-color: #f0f8ff; /* Light blue hover */
+    transition: background-color 0.3s ease;
 }
  
 .table th, .table td {
@@ -423,3 +431,53 @@ mat-paginator{
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
   }
+.order-group {
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-date {
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.products-list {
+  display: flex;
+  flex-direction: column; 
+  gap: 20px;
+}
+
+.product-card {
+  display: flex;
+  justify-content: space-between; /* creates space between text and image */
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  background-color: #fafafa;
+  gap: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.product-info {
+  flex-grow: 1;
+}
+
+.product-name {
+  margin: 0 0 8px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #222;
+}

@@ -196,3 +196,36 @@ span.price {
         max-width: 100%;
     }
 }
+.actions {
+  display: flex;
+  justify-content: space-between; 
+  margin-top: 20px; 
+  gap: 0; 
+}
+
+.actions button {
+  padding: 6px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  color: white; 
+  max-width: 45%; 
+}
+
+.actions .add-to-cart {
+  background-color: #5a4d2e;
+}
+
+.actions .add-to-cart:hover {
+  background-color: #4a3e26;
+}
+
+.actions .buy-now {
+  background-color: #b38b2d;
+}
+
+.actions .buy-now:hover {
+  background-color: #9c771f; 
+}

@@ -1,27 +1,58 @@
-mat-card{
-  width: 300px;
+mat-card {
+  width: 270px;
   margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-app-filter{
+app-filter {
   height: max-content;
 }
 
-button.clear{
-  margin-top: 10px;
-  background: #5f5f5fbb;
+button.btn.btn-success {
+  background-color: #5a4d2e;
+  color: white;
+  border: none;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
-button.clear:hover{
-  margin-top: 10px;
-  background: #adacacbb;
+button.btn.btn-success:hover {
+  background-color: #7a653c; 
 }
+
+
+button.clear {
+  margin-top: 10px;
+  background: #a2833a;
+  color: white;
+    font-size: 15px;
+
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+
+button.clear:hover {
+  background:  #ad8c40;
+}
+
 
 .filters {
   display: flex;
   flex-direction: column;
   gap: 15px;
   margin-bottom: 20px;
+}
+
+/* Ensures checkboxes are stacked vertically */
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: 15px;
 }
 
 .filters label {
@@ -33,4 +64,9 @@ button.clear:hover{
 
 .filters div {
   margin-left: 15px;
+}
+
+/* Remove gray background from sort by field */
+.sort-select .mat-form-field-flex {
+  background-color: transparent !important;
 }

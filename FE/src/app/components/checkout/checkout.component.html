@@ -1,89 +1,79 @@
-<mat-card class="checkout-card">
-  <div class="checkout-header">
-    <h1>Checkout</h1>
-
-    <div class="order-price">
-      <p>Order Total: <strong>{{ totalPrice | currency }}</strong></p>
+<div class="checkout-container">
+  <!-- LEFT: Order Items List -->
+  <div class="order-items-list">
+    <h2>Your Order</h2>
+    <div *ngFor="let orderDetail of order" class="order-card">
+      <mat-card class="order-history-card">
+         <div class="order-content">
+          <img [src]="orderDetail.image" alt="{{ orderDetail.name }}" class="product-image" />
+        <div class="order-info">
+            <div class="order-info-row">
+            <span class="label">Item:</span>
+            <span class="value">{{ orderDetail.name }}</span>
+          </div>
+          <div class="order-info-row">
+            <span class="label">Quantity:</span>
+            <span class="value">{{ orderDetail.quantity }}</span>
+          </div>
+          <div class="order-info-row">
+            <span class="label">Price:</span>
+            <span class="value">{{ orderDetail.price | currency }}</span>
+          </div>
+          <div class="order-info-row">
+            <span class="label">Subtotal:</span>
+            <span class="value">{{ subtotal(orderDetail) | currency }}</span>
+          </div>
+        </div>
+        </div>
+      </mat-card>
     </div>
   </div>
 
-  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Full Name</mat-label>
-      <input matInput formControlName="fullName" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Address</mat-label>
-      <input matInput formControlName="address" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="half-width">
-      <mat-label>City</mat-label>
-      <input matInput formControlName="city" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="half-width">
-      <mat-label>Zip Code</mat-label>
-      <input matInput formControlName="zip" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Payment Method</mat-label>
-      <mat-select formControlName="paymentMethod" required>
-        <mat-option value="credit">Credit Card</mat-option>
-        <mat-option value="paypal">Pay on Delivery</mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-        @if(checkoutForm.get('paymentMethod')?.value === 'credit'){
-        <div>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Card Number</mat-label>
-            <input matInput formControlName="cardNumber" required />
-          </mat-form-field>
-    
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>Expiration Date</mat-label>
-            <input matInput type="month" formControlName="expirationDate" required />
-          </mat-form-field>
-    
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>CVV</mat-label>
-            <input matInput type="password" formControlName="cvv" required />
-          </mat-form-field>
+  <!-- RIGHT: Checkout Form -->
+  <div class="checkout-form-section">
+    <mat-card class="checkout-card">
+      <div class="checkout-header">
+        <h1>Checkout</h1>
+        <div class="order-price">
+          <p>Order Total: <strong>{{ totalPrice | currency }}</strong></p>
         </div>
-      }
- 
-    <button class="checkout-btn" type="submit" [disabled]="checkoutForm.invalid || !isLoggedIn">
-      Submit Order
-    </button>
-  </form>
-</mat-card>
-
-<div class="checkout-sidebar-price-table">
-  <div>
-      <h2> Order</h2>
-      <div>
-          <h6 class="page-title"></h6>
-          <table class="table table-bordered">
-              <thead>
-                  <tr>
-                      <th class="table-header">Item Name</th>
-                      <th class="table-header">Quantity</th>
-                      <th class="table-header">Price</th>
-                      <th class="table-header">Subtotal</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let orderDetail of order">
-                      <td>{{ orderDetail.name }}</td>
-                      <td>{{ orderDetail.quantity }}</td>
-                      <td>{{ orderDetail.price | currency}}</td>
-                      <td>{{ subtotal(orderDetail) | currency}}</td>
-                  </tr>
-              </tbody>
-          </table>
       </div>
+
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="fullName" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Zip Code</mat-label>
+          <input matInput formControlName="zip" required />
+        </mat-form-field>
+
+        <div class="payment-info">
+  <p>
+    <strong>Note:</strong> You will pay for your order when it arrives — no online payment is required.
+  </p>
+</div>
+
+        <button
+          class="checkout-btn"
+          type="submit"
+          [disabled]="checkoutForm.invalid || !isLoggedIn"
+        >
+          Submit Order
+        </button>
+      </form>
+    </mat-card>
   </div>
 </div>

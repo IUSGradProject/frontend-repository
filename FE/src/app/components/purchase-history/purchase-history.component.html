@@ -36,41 +36,42 @@
 </div>
 }
 
-@if(purchaseHistory.length > 0){
-    <div class="checkout-sidebar-price-table">
-<div>
-    <h2> Purchase History</h2>
-    <div *ngFor="let order of purchaseHistory">
-        <h5 class="page-title">Order date: {{ (order[0].orderDate) | date: "MMM dd, yyyy 'at' hh:mm a"}} </h5>
-        <h6 class="page-title"></h6>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th class="table-header">Item Name</th>
-                    <th class="table-header">Quantity</th>
-                    <th class="table-header">Price of product</th>
-                    <th class="table-header">Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let orderDetail of order">
-                    <td>{{ orderDetail.name }}</td>
-                    <td>{{ orderDetail.quantity }}</td>
-                    <td>{{ orderDetail.price | currency}}</td>
-                    <td>{{ subtotal(orderDetail) | currency}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div *ngIf="(purchaseHistory?.length ?? 0) > 0" class="checkout-sidebar-price-table">
 
-    <mat-paginator [length]="totalRecords"
-                     [pageSize]="pageSize"
-                     [pageSizeOptions]="[2, 4, 6]"
-                     (page)="onPageChange($event)">
+  <h2>Purchase History</h2>
+  <div *ngFor="let order of purchaseHistory" class="order-group">
+    <h5 class="order-date">
+      Order date: {{ (order[0].orderDate) | date: "MMM dd, yyyy 'at' hh:mm a" }}
+    </h5>
+
+    <div class="products-list">
+      <div *ngFor="let orderDetail of order" class="product-card">
+       <div class="product-info">
+    <h3 class="product-name">{{ orderDetail.name }}</h3>
+    <p>Quantity: <strong>{{ orderDetail.quantity }}</strong></p>
+    <p>Price per unit: <strong>{{ orderDetail.price | currency }}</strong></p>
+    <p>Subtotal: <strong>{{ subtotal(orderDetail) | currency }}</strong></p>
+  </div>
+
+  <img
+    [src]="orderDetail.image"
+    alt="{{ orderDetail.name }}"
+    class="product-image"
+  />
+      </div>
+    </div>
+ 
+</div>
+
+    <mat-paginator
+      [length]="totalRecords"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[2, 4, 6]"
+      (page)="onPageChange($event)">
     </mat-paginator>
-</div>
-</div>
-}
+  </div>
+
+
 
 <app-delete-confirmation
     *ngIf="showConfirmationModal"

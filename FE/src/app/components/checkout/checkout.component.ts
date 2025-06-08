@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,6 +32,7 @@ import { MatSnackBar} from '@angular/material/snack-bar';
     CommonModule,
     MatDividerModule,
   ],
+   encapsulation: ViewEncapsulation.None,
 })
 export class CheckoutComponent implements OnInit{
   checkoutForm!: FormGroup;
@@ -79,10 +80,6 @@ export class CheckoutComponent implements OnInit{
       address: ['', Validators.required],
       city: ['', Validators.required],
       zip: ['', Validators.required],
-      paymentMethod: ['', Validators.required],
-      cardNumber: ['', Validators.required],
-      expirationDate: ['', Validators.required],
-      cvv: ['', Validators.required],
     });
   }
 
