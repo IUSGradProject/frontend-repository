@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoV } from '../../models/lov.model';
 import { MatInputModule, MatLabel } from '@angular/material/input';
@@ -28,7 +28,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     NgxCurrencyDirective,
   ],
   templateUrl: './edit-product.component.html',
-  styleUrl: './edit-product.component.css'
+  styleUrl: './edit-product.component.css',
+   encapsulation: ViewEncapsulation.None,
 })
 export class EditProductComponent implements OnInit {
   productForm!: FormGroup;

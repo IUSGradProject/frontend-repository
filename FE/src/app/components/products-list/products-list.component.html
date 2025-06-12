@@ -1,14 +1,41 @@
 <div class="form-container">
   <form>
-    <input  type="search" placeholder="Search for items..." [(ngModel)]="filterRequest.query" (input)="onSearchInput($event)"  [ngModelOptions]="{standalone: true}">
-    
-    <mat-select id="category" [(value)]="selectedCategory" (selectionChange)="onCategoryChange($event.value)">
-      <mat-option [value]="0">All Categories <span class="dropdown-indicator">▼</span> </mat-option>
-      <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}} <span class="dropdown-indicator">▼</span></mat-option>
-    </mat-select>
-    
-    <i class="fa fa-search"></i>
-  </form>
+  <input
+    type="search"
+    placeholder="Search for items..."
+    [(ngModel)]="filterRequest.query"
+    (input)="onSearchInput($event)"
+    [ngModelOptions]="{ standalone: true }"
+  />
+
+  <mat-select
+    id="category"
+    [(value)]="selectedCategory"
+    (selectionChange)="onCategoryChange($event.value)"
+    class="with-dropdown-icon"
+  >
+    <!-- Template for selected display -->
+    <ng-template>
+      <div class="selected-display">
+        <span *ngIf="selectedCategory === 0">All Categories</span>
+        <span *ngFor="let category of categories">
+          <span *ngIf="category.id === selectedCategory">{{ category.name }}</span>
+        </span>
+      </div>
+    </ng-template>
+
+    <!-- Options in dropdown -->
+    <mat-option [value]="0">
+      All Categories
+     </mat-option>
+    <mat-option *ngFor="let category of categories" [value]="category.id">
+      {{ category.name }}
+     
+    </mat-option>
+  </mat-select>
+
+  <i class="fa fa-search"></i>
+</form>
 </div>
 
 <div class="content-container">

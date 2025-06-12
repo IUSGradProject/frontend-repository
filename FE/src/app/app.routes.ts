@@ -9,7 +9,8 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { PurchaseHistoryComponent } from './components/purchase-history/purchase-history.component';
-import { AuthGuard } from './auth.gard';
+import { AuthGuard } from './auth.guard';
+import { AdminGuard } from './admin.guard';
 
 export const routes: Routes = [
     { 
@@ -44,17 +45,17 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         component: AdminDashboardComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AdminGuard]
     },
     {
         path: 'edit/:id',
         component: EditProductComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AdminGuard]
     },
     {
         path: 'create',
         component: EditProductComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AdminGuard]
     },
     {
         path: 'purchase-history',

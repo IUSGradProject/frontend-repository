@@ -1,30 +1,135 @@
-.product-form-container {
-    max-width: 600px;
-    margin: 50px auto;
-    margin-bottom: 50px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  button {
-    width: 100%;
-    margin-top: 20px;
-  }
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 0px 16px;
+}
 
-  .form-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;  /* Optional: Adds space between the form fields */
-  }
+.product-form-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 50px auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Remove red * from required label */
+.mat-mdc-form-field .mdc-floating-label--required::after {
+  content: none !important;
+}
+
+/* Input styling - remove background */
+.product-form-container .mat-mdc-input-element,
+.product-form-container .mdc-text-field--filled {
+  background-color: transparent !important;
+}
+.product-form-container .mat-mdc-form-field .mdc-text-field__input {
+  padding: 8px 0 !important;
+}
+.product-form-container .mat-mdc-form-field .mdc-floating-label {
+  color: #555 !important;
+}
+.product-form-container .mat-mdc-form-field.mat-mdc-form-field-focused .mdc-floating-label {
+  color: #5a4d2e !important;
+}
+.product-form-container .mat-mdc-form-field .mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
+}
+
+/* Product Name & Image URL on same row */
+.product-form-container > form > .form-group:nth-of-type(1),
+.product-form-container > form > .form-group:nth-of-type(2) {
+  display: inline-block;
+  width: calc(50% - 8px);
+  vertical-align: top;
+}
+.product-form-container > form > .form-group:nth-of-type(1) {
+  margin-right: 16px;
+}
+
+/* Description full width */
+.product-form-container > form > .form-group:nth-of-type(3) {
+  width: 100%;
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* Price, Sold Items, Available items in same row */
+.product-form-container > form > .form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.product-form-container .form-row .form-group {
+  flex: 1 1 calc(33.333% - 10px);
+}
+
+/* Dropdowns: Category, Brand, Style in same row with gaps */
+.product-form-container > form > .dropdown-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.product-form-container > form > .dropdown-row .form-group {
+  flex: 1 1 calc(33.333% - 10px);
+}
+
+/* Buttons in same row, smaller width, spaced */
+.product-form-container form .button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.product-form-container form button[type="submit"],
+.product-form-container form button[mat-raised-button]:not([type="submit"]) {
+  min-width: 140px; 
+  max-width: 300px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+/* Submit button (Add/Edit Product) - "Submit" */
+button[type="submit"] {
+  background-color: #5a4d2e;
+  color: white;
+  min-width: 140px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #4a3e26;
+}
+
+/* Cancel / Back button - "Cancel" */
+button[mat-raised-button]:not([type="submit"]) {
+  background-color: #b38b2d;
+  color: white;
+  min-width: 140px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-left: 12px;
+  transition: background-color 0.3s ease;
+}
+
+button[mat-raised-button]:not([type="submit"]):hover {
+  background-color: #9c771f;
+}

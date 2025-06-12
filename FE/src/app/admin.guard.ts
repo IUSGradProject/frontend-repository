@@ -8,14 +8,18 @@ import { UserService } from './services/user.service';
 export class AdminGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-    const userRoles = this.userService.getRoles();
-
-    if (this.userService.isAuthenticated() && userRoles == "Admin") {
-      return true;
+ canActivate(): boolean {
+    if (!this.userService.isAuthenticated()) {
+      // User is not logged in → redirect to login
+      this.router.navigate(['/login']);
+      return false;
     }
 
-    this.router.navigate(['/login']);
-    return false;
+    if (!this.userService.isAdmin()) {
+      this.router.navigate(['/shop']); 
+      return false;
+    }
+
+    return true;
   }
 }

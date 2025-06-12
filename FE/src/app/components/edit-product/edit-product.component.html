@@ -55,7 +55,7 @@
             </mat-error>
           </mat-form-field>
         </div>
-
+<div class="dropdown-row">
         <mat-form-field appearance="fill" class="form-group">
           <mat-label>Category</mat-label>
           <mat-select formControlName="categoryId">
@@ -91,9 +91,11 @@
             Style is required.
           </mat-error>
         </mat-form-field>
-  
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-        <button mat-raised-button color="primary" (click)="goBack($event)">Cancel</button>
+  </div>
+        <div class="button-row">
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+  <button mat-raised-button color="primary" (click)="goBack($event)">Cancel</button>
+</div>
       </form>
     </div>
   </div>  

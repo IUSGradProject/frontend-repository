@@ -32,7 +32,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
     MatSelectModule
   ],
   templateUrl: './products-list.component.html',
-  styleUrl: './products-list.component.css'
+  styleUrl: './products-list.component.css',
+  
 })
 export class ProductsListComponent implements OnInit {
   filterRequest!: FilterRequest;

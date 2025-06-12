@@ -79,6 +79,10 @@ checkLoginStatus(): boolean {
         return this.checkLoginStatus()
     }
 
+    getRoles(): string | null {
+  return sessionStorage.getItem('role');
+}
+
     successfulLogin(role: string, firstName: string, lastName: string, email: string){
         sessionStorage.setItem('loggedIn', 'true');
         sessionStorage.setItem('role', role);        
